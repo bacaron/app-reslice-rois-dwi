@@ -3,6 +3,39 @@
 
 # Reslice ROIS to match input DWI
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **Reslices a collection of ROIs onto the voxel grid of a DWI image with FreeSurfer mri_vol2vol (header registration, nearest-neighbour interpolation).**
+
+Runs mri_vol2vol --regheader with nearest-neighbour interpolation on every ROI so that it matches the voxel size and grid of the DWI. Use it when ROIs were made on a different voxel grid (for example T1w resolution) but are already aligned to the DWI; it does not register the images. Needs a FreeSurfer license.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/dwi` · `neuro/rois` |
+| 📤 **Outputs** | `neuro/rois` |
+| 🐳 **Container** | `brainlife/freesurfer:6.0.0` |
+| ⚙️ **Resources** | 1 CPUs · 1 h walltime |
+| 🔑 **Requires** | `FREESURFER_LICENSE` |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.671](https://doi.org/10.25663/brainlife.app.671) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `dwi` | `neuro/dwi` | yes | DWI image whose voxel grid is the target. |
+| `rois` | `neuro/rois` | yes | Collection of ROI NIfTI files already aligned (in world coordinates) to the DWI. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `output` | `neuro/rois` | The ROIs resliced to the DWI voxel grid. |
+
+📚 **References used by this App:**
+- Dale AM, Fischl B, Sereno MI. Cortical surface-based analysis. I. Segmentation and surface reconstruction. NeuroImage 9:179-194 (1999).
+
+<!-- brainlife-app:end -->
+
 This app will This app will reslice ROIs to match the voxel size and spacing of an input diffusion dwi image. This may need to be done if the ROIs were generated in a different space (i.e. voxel grid). This app uses Freesurfer's mri_vol2vol to reslice the data. Assumes that the space the ROIs are in are registered to the diffusion dwi image.
 
 ### Authors
